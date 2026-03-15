@@ -19,3 +19,21 @@ build/
 
 # Environment files
 .env
+
+# Test databases
+*.db
+
+# Node / React Native
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

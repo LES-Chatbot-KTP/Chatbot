@@ -1,0 +1,19 @@
+"""Authentication schemas."""
+
+from pydantic import BaseModel, EmailStr
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    senha: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+class TokenData(BaseModel):
+    usuario_id: int | None = None
+    email: str | None = None
+    perfil: str | None = None
