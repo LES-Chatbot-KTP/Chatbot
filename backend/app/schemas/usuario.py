@@ -1,7 +1,7 @@
 """User schemas."""
 
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UsuarioCreate(BaseModel):
@@ -27,8 +27,7 @@ class UsuarioResponse(BaseModel):
     perfil_nome: str | None = None
     criado_em: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PerfilResponse(BaseModel):
@@ -36,5 +35,4 @@ class PerfilResponse(BaseModel):
     nome: str
     descricao: str | None = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

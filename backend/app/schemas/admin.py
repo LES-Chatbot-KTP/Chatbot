@@ -1,10 +1,12 @@
 """Admin panel schemas."""
 
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class LogAdministrativoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     usuario_id: int
     acao: str
@@ -12,9 +14,6 @@ class LogAdministrativoResponse(BaseModel):
     entidade_id: int | None = None
     detalhes: str | None = None
     criado_em: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class MetricasResponse(BaseModel):

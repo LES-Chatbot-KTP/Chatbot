@@ -1,7 +1,7 @@
 """Evaluation schemas."""
 
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class AvaliacaoCreate(BaseModel):
@@ -11,11 +11,10 @@ class AvaliacaoCreate(BaseModel):
 
 
 class AvaliacaoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     resposta_id: int
     nota: int
     comentario: str | None = None
     criado_em: datetime
-
-    class Config:
-        from_attributes = True

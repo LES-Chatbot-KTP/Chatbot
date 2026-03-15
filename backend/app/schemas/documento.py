@@ -1,7 +1,7 @@
 """Document schemas."""
 
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CategoriaCreate(BaseModel):
@@ -10,13 +10,12 @@ class CategoriaCreate(BaseModel):
 
 
 class CategoriaResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     nome: str
     descricao: str | None = None
     criado_em: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class DocumentoCreate(BaseModel):
@@ -34,17 +33,18 @@ class DocumentoUpdate(BaseModel):
 
 
 class VersaoDocumentoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     documento_id: int
     numero_versao: int
     conteudo: str
     criado_em: datetime
 
-    class Config:
-        from_attributes = True
-
 
 class DocumentoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     titulo: str
     descricao: str | None = None
@@ -53,15 +53,14 @@ class DocumentoResponse(BaseModel):
     criado_em: datetime
     atualizado_em: datetime
 
-    class Config:
-        from_attributes = True
-
 
 class DocumentoDetailResponse(DocumentoResponse):
     versoes: list[VersaoDocumentoResponse] = []
 
 
 class IndexacaoJobResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     documento_id: int | None = None
     status: str
@@ -71,6 +70,3 @@ class IndexacaoJobResponse(BaseModel):
     erro: str | None = None
     criado_em: datetime
     finalizado_em: datetime | None = None
-
-    class Config:
-        from_attributes = True

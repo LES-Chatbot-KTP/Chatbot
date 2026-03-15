@@ -1,7 +1,7 @@
 """Conversation and chat schemas."""
 
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ConversaCreate(BaseModel):
@@ -15,8 +15,7 @@ class ConversaResponse(BaseModel):
     criado_em: datetime
     atualizado_em: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PerguntaRequest(BaseModel):
@@ -30,6 +29,8 @@ class FonteResponse(BaseModel):
 
 
 class RespostaResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     pergunta_id: int
     texto: str
@@ -37,20 +38,16 @@ class RespostaResponse(BaseModel):
     fontes: list[FonteResponse] = []
     criado_em: datetime
 
-    class Config:
-        from_attributes = True
-
 
 class PerguntaResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     conversa_id: int
     texto_original: str
     texto_processado: str | None = None
     resposta: RespostaResponse | None = None
     criado_em: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class ChatResponse(BaseModel):
