@@ -1,32 +1,18 @@
 """
-Caso de uso: listar documentos disponíveis na API do Gemini.
-Usa genai.list_files() para recuperar os arquivos enviados à API.
+Caso de uso: listar todos os documentos cadastrados no banco de dados.
+Repository Pattern — recebe o repositório via injeção de dependência (Factory).
 """
 
-import google.generativeai as genai
-from django.conf import settings
+from Backend.app.domain.repositories.document_repository import DocumentRepository
 
 
 class ListDocuments:
 
+    def __init__(self, repository: DocumentRepository):
+        self.repository = repository
+
     def executar(self) -> list[dict]:
-        api_key = settings.GEMINI_API_KEY
-        if not api_key:
-            raise RuntimeError("GEMINI_API_KEY não configurada.")
-
-        genai.configure(api_key=api_key)
-
-        arquivos = []
-        for arquivo in genai.list_files():
-            arquivos.append({
-                "name": arquivo.name,
-                "display_name": arquivo.display_name,
-                "mime_type": arquivo.mime_type,
-                "size_bytes": arquivo.size_bytes,
-                "state": arquivo.state.name,
-                "create_time": arquivo.create_time.isoformat() if arquivo.create_time else None,
-                "expiration_time": arquivo.expiration_time.isoformat() if arquivo.expiration_time else None,
-                "uri": arquivo.uri,
-            })
-
-        return arquivos
+        """
+        Retorna a lista de todos os documentos persistidos no PostgreSQL.
+        """
+        return self.repository.list_all()
